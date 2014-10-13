@@ -8,3 +8,9 @@ WHERE cid IN (
                 GROUP BY cid
                 HAVING COUNT(cid) >= 5
             )
+/*UPDATE customer
+INNER JOIN rented ON customer.cid = rented.cid
+SET balance = balance + 5
+WHERE outdate >= (SELECT DATE_SUB(curdate(), INTERVAL 2 WEEK))
+GROUP BY customer.cid
+HAVING COUNT(customer.cid) >= 5*/
