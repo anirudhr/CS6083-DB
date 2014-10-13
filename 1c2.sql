@@ -1,0 +1,1 @@
+/*Write statements for updating the database when a customer returns a movie, that is, for updating the rental record and reducing the credit balance in the customer record. Assume that the cost of the rental is $3 for the first day plus $1 for each additional day. (Choose one of the copies that is currently checked out in the provided database to be returned.)*/
