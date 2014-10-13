@@ -1,6 +1,6 @@
 /*List the customer IDs and balances of all customers who have rented the same movie from 2 different branches.*/
 USE videoRentalChain;
-SELECT cname,title,bname FROM customer
+SELECT cname,balance FROM customer
 INNER JOIN rented ON rented.cid = customer.cid
 INNER JOIN copy ON copy.copyid = rented.copyid
 INNER JOIN movie ON movie.mid = copy.mid
