@@ -1,5 +1,4 @@
 /*
-:indentSize=4:tabSize=4:noTabs=true:wrap=soft:
 Define a view on top of the customer table that contains only the customers ID, name, and address. Using this view, write queries for the following tasks:
 (i) Output the address of the customer with name “John Smith”.
 (ii) Output the balance of the customer with the name “John Smith”.
@@ -7,3 +6,7 @@ Define a view on top of the customer table that contains only the customers ID, 
 If you cannot write some of these queries using the view, explain why.
 */
 USE videoRentalChain;
+DROP VIEW addresses;
+CREATE VIEW addresses AS
+    SELECT cid, cname, caddress FROM customer
+;

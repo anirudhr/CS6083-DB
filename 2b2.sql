@@ -1,4 +1,6 @@
 /*
-:indentSize=4:tabSize=4:noTabs=true:wrap=soft:
+(ii) Output the balance of the customer with the name “John Smith”.
+CANNOT BE WRITTEN WITH VIEW. View does not contain balance, so we need to access the "customer" table to retrieve that value.
 */
 USE videoRentalChain;
+SELECT balance 

@@ -7,8 +7,7 @@ WHERE bid = (SELECT bid FROM analyst
             ORDER BY SUM(tot_income) DESC
             LIMIT 1)
 */
-SELECT branch.bname FROM branch
-INNER JOIN analyst ON branch.bid = analyst.bid
-GROUP BY branch.bid
+SELECT bname FROM analyst
+GROUP BY bid
 ORDER BY SUM(tot_income) DESC
 LIMIT 1

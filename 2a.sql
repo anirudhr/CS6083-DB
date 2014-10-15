@@ -4,7 +4,7 @@
 USE videoRentalChain;
 DROP VIEW analyst;
 CREATE VIEW analyst AS 
-    SELECT movie.mid, branch.bid, COUNT(rented.copyid) AS num_rented, SUM(rented.cost) AS tot_income FROM movie
+    SELECT movie.mid, movie.title, branch.bid, branch.bname, COUNT(rented.copyid) AS num_rented, SUM(rented.cost) AS tot_income FROM movie
     INNER JOIN copy ON movie.mid = copy.mid
     INNER JOIN branch ON copy.bid = branch.bid
     INNER JOIN rented ON copy.copyid = rented.copyid AND YEAR(rented.outdate) = '2009'

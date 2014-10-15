@@ -1,4 +1,4 @@
 /*
-:indentSize=4:tabSize=4:noTabs=true:wrap=soft:
+(iii) Add a new customer record for customer “Bob Jones” at “23 Court Street, Brooklyn” with ID 18123.
 */
 USE videoRentalChain;
