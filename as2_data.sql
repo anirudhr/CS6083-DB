@@ -42,8 +42,8 @@ CREATE TABLE copy (
 CREATE TABLE rented (
   cid    int(10),
   copyid  int(10),
-  outdate       int(8),
-  returndate    int(8),
+  outdate date,/*outdate       int(8),*/
+  returndate date,/*returndate    int(8),*/
   cost       int(4),
   primary key (cid,copyid,outdate),
   foreign key (cid) references customer(cid),
