@@ -37,11 +37,14 @@ $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-
-$sql_searchkeyword = $conn->prepare("SELECT sandwich.sname,description,size,price FROM sandwich INNER JOIN menu ON sandwich.sname = menu.sname WHERE description LIKE ? ORDER BY sandwich.sname, price");
-$sql_searchkeyword->execute($keyword);
-if (1) {
-    $result = $sql_searchkeyword->get_result();
+$search_keyword_query = "SELECT sandwich.sname,description,size,price FROM sandwich INNER JOIN menu ON sandwich.sname = menu.sname WHERE description LIKE ? ORDER BY sandwich.sname, price";
+$stmt = $conn->stmt_init();
+if(!$stmt->prepare($search_keyword_query)) {
+    echo "Failed to prepare. <br/>";
+}
+else {
+    $stmt->bind_param("s", $keyword);
+    $result = $stmt->get_result();
     echo "<table>
     <tr>
         <td><strong>Name</strong></td>
@@ -53,8 +56,6 @@ if (1) {
         echo "<tr><td>" . $row["sname"] . "</td><td>" . $row["description"] . "</td><td>" . $row["size"] . "</td><td>" . $row["price"] . "</td></tr>";
     }
     echo "</table>";
-} else {
-    echo "0 results";
 }
 $conn->close();
 
