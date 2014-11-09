@@ -27,9 +27,8 @@ function striptext($text) {
     $text = htmlspecialchars($text);
     return $text;
 }
-$keyword = striptext($_POST['keyword']);
+$keyword = "'%" . striptext($_POST['keyword']) . "'%";
 $_SESSION['phone'] = $_POST['phone'];
-
 $host = "localhost";
 $user = "root";
 $pass = "toor";
@@ -39,9 +38,8 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql_searchkeyword = "SELECT sandwich.sname,description,size,price FROM sandwich INNER JOIN menu ON sandwich.sname = menu.sname WHERE description LIKE '%" . $keyword . "%' ORDER BY sandwich.sname, price;";
-$result = $conn->query($sql_searchkeyword);
-if ($result->num_rows > 0) {
+$sql_searchkeyword = $conn->prepare("SELECT sandwich.sname,description,size,price FROM sandwich INNER JOIN menu ON sandwich.sname = menu.sname LIMIT 1");// WHERE description LIKE ? ORDER BY sandwich.sname, price");
+if ($sql_searchkeyword->execute()) {//$keyword)) {
     echo "<table>
     <tr>
         <td><strong>Name</strong></td>
@@ -49,7 +47,7 @@ if ($result->num_rows > 0) {
         <td><strong>Size</strong></td>
         <td><strong>Price</strong></td>
     </tr>";
-    while($row = $result->fetch_assoc()) {
+    while($row = $sql_searchkeyword->fetch_assoc()) {
         echo "<tr><td>" . $row["sname"] . "</td><td>" . $row["description"] . "</td><td>" . $row["size"] . "</td><td>" . $row["price"] . "</td></tr>";
     }
     echo "</table>";
