@@ -24,12 +24,13 @@ $conn = new mysqli($host, $user, $pass, $db);
 
 $chk_pending_query = "SELECT o_time
                         FROM orders
-                        WHERE phone = " . $phone . 
-                        "AND sname = " . $sname . 
-                        "AND size = " . $size;
+                        WHERE phone = '$phone'
+                         AND sname = '$sname'
+                         AND size = '$size'
+                         AND status = 'pending'";
 $stmt = $conn->stmt_init();
-if(!$stmt->prepare($search_keyword_query)) {
-    echo "Failed to prepare. <br/>";
+if(!$stmt->prepare($chk_pending_query)) {
+    echo "Failed to prepare query. <br/> $chk_pending_query <br/>";
 }
 else {
     $stmt->execute();
@@ -40,15 +41,22 @@ else {
         $o_time_res[] = $o_time;
         $len = $len + 1;
     }
-    if ($len > 1) {
-        echo "Too many results. <br/>";
-    }
-    elseif ($len == 0) {
+    $o_time = date('Y-m-d H:i:s', time() - 5*60*60); //GMT-5
+    if ($len == 0) {
         //need to insert new tuple
+        $insupd_query = "INSERT INTO
+                        orders (phone, sname, size, o_time, quantity, status)
+                        VALUES ('$phone', '$sname', '$size', '$o_time', 1, 'pending')";
     }
     else {
-        //need to update existing tuple. primary key: $phone+$sname+$size+$o_time
+        //need to update existing tuple. primary key: $phone+$sname+$size
+        $insupd_query = "UPDATE orders
+                        SET quantity = quantity+1, o_time='$o_time'
+                        WHERE phone='$phone'
+                        AND sname='$sname'
+                        AND size='$size'";
     }
+    echo $insupd_query . "<br/>";
 }
 $conn->close();
 ?>

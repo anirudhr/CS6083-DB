@@ -22,11 +22,11 @@
             method="post"> 
   <label>Keyword
   <a href="#" class="help_link"><input type="text" name="keyword"/></a>
-  <span class="help">Search term for your sandwich.</span>
+  <!--<span class="help">Search term for your sandwich.</span>-->
   </label>
   <label>Phone
   <a href="#" class="help_link"><input type="text" name="phone" pattern="[0-9]{10}" required/></a>
-  <span class="help">10-digit number.</span>
+  <!--<span class="help">10-digit number.</span>-->
   </label>
   <label><input type="submit"/></label>
 </form>
