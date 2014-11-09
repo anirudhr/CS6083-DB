@@ -38,8 +38,8 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql_searchkeyword = $conn->prepare("SELECT sandwich.sname,description,size,price FROM sandwich INNER JOIN menu ON sandwich.sname = menu.sname LIMIT 1");// WHERE description LIKE ? ORDER BY sandwich.sname, price");
-if ($sql_searchkeyword->execute()) {//$keyword)) {
+$sql_searchkeyword = $conn->prepare("SELECT sandwich.sname,description,size,price FROM sandwich INNER JOIN menu ON sandwich.sname = menu.sname WHERE description LIKE ? ORDER BY sandwich.sname, price");
+if ($sql_searchkeyword->execute($keyword)) {
     echo "<table>
     <tr>
         <td><strong>Name</strong></td>
