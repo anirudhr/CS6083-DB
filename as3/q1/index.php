@@ -44,7 +44,8 @@ if(!$stmt->prepare($search_keyword_query)) {
 }
 else {
     $stmt->bind_param("s", $keyword);
-    $result = $stmt->get_result();
+    $stmt->execute();
+    $stmt->bind_result($sname, $description, $size, $price);
     echo "<table>
     <tr>
         <td><strong>Name</strong></td>
@@ -52,8 +53,8 @@ else {
         <td><strong>Size</strong></td>
         <td><strong>Price</strong></td>
     </tr>";
-    while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["sname"] . "</td><td>" . $row["description"] . "</td><td>" . $row["size"] . "</td><td>" . $row["price"] . "</td></tr>";
+    while($stmt->fetch()) {
+        echo "<tr><td>" . $sname . "</td><td>" . $description . "</td><td>" . $size . "</td><td>" . $price . "</td></tr>";
     }
     echo "</table>";
 }
