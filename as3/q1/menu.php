@@ -8,13 +8,11 @@ Use PHP to implement a web application that supports the following :
 (iii) Using the form produced in part (ii), the user can select a sandwich and size. The order table is updated as follows:
 If the user has a pending order of the same size of the same kind of sandwich, the quantity on that order is increased by one and the o_time is changed to the current time.
 Otherwise, a new tuple is inserted in the order table, representing this customer’s order of this sandwich, with the current time as the o_time and quantity equal to 1. Note that to do this, the app will need to fetch the customer's phone number from the session variable.
-
 For full credit, you must use prepared statements.
-Test your application, using the data provided on the course page to populate your database. 
 -->
 <head>
 <title>Sandwich Search</title>
-<style>table, th, td { border: 1px solid black; }</style>
+<style>th, td { border: 1px solid black; }</style>
 </head>
 <body>
 <?php
@@ -37,7 +35,11 @@ $conn = new mysqli($host, $user, $pass, $db);
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$search_keyword_query = "SELECT sandwich.sname,description,size,price FROM sandwich INNER JOIN menu ON sandwich.sname = menu.sname WHERE description LIKE ? ORDER BY sandwich.sname, price";
+$search_keyword_query = "SELECT sandwich.sname,description,size,price
+                            FROM sandwich
+                            INNER JOIN menu ON sandwich.sname = menu.sname
+                            WHERE description LIKE ?
+                            ORDER BY sandwich.sname, price";
 $stmt = $conn->stmt_init();
 if(!$stmt->prepare($search_keyword_query)) {
     echo "Failed to prepare. <br/>";
@@ -49,15 +51,20 @@ else {
     echo "<form name='take_order' action='process.php' method='get'/>
     <table>
     <tr>
-        <td><strong>Name</strong></td>
-        <td><strong>Description</strong></td>
-        <td><strong>Size</strong></td>
-        <td><strong>Price</strong></td>
-        <td><strong>Select</strong></td>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Size</th>
+        <th>Price</th>
+        <th>Select</th>
     </tr>";
     while($stmt->fetch()) {
-        $sendstr = $sname . '|' . $size;
-        echo "<tr><td>" . $sname . "</td><td>" . $description . "</td><td>" . $size . "</td><td>" . $price . "</td><td><input type='radio' name = 'selection' value = '$sendstr'/></td></tr>";
+        $sendstr = $sname . '|' . $size;    //the composite key of the menu relation
+        echo   "<tr><td> $sname
+               </td><td> $description
+               </td><td> $size
+               </td><td> $price
+               </td><td> <input type='radio' name='selection' value='$sendstr'/>
+               </td></tr>";
     }
     echo "</table>
     <input type='submit' value='Submit'/>";
