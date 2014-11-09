@@ -46,17 +46,20 @@ else {
     $stmt->bind_param("s", $keyword);
     $stmt->execute();
     $stmt->bind_result($sname, $description, $size, $price);
-    echo "<table>
+    echo "<form name='input' action='process.php' method='get'/>
+    <table>
     <tr>
         <td><strong>Name</strong></td>
         <td><strong>Description</strong></td>
         <td><strong>Size</strong></td>
         <td><strong>Price</strong></td>
+        <td><strong>Select</strong></td>
     </tr>";
     while($stmt->fetch()) {
-        echo "<tr><td>" . $sname . "</td><td>" . $description . "</td><td>" . $size . "</td><td>" . $price . "</td></tr>";
+        echo "<tr><td>" . $sname . "</td><td>" . $description . "</td><td>" . $size . "</td><td>" . $price . "</td><td><input type='radio' name = '$sname'/></td></tr>";
     }
-    echo "</table>";
+    echo "</table>
+    <input type='submit' value='Submit'/>";
 }
 $conn->close();
 
