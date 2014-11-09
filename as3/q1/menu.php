@@ -25,7 +25,7 @@ function striptext($text) {
     return $text;
 }
 $keyword = "%" . striptext($_POST['keyword']) . "%";
-$_SESSION['phone'] = $_POST['phone'];
+$_SESSION['phone'] = striptext($_POST['phone']);
 $host = "localhost";
 $user = "root";
 $pass = "toor";
