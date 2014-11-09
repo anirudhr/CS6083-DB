@@ -46,7 +46,7 @@ else {
     $stmt->bind_param("s", $keyword);
     $stmt->execute();
     $stmt->bind_result($sname, $description, $size, $price);
-    echo "<form name='input' action='process.php' method='get'/>
+    echo "<form name='take_order' action='process.php' method='get'/>
     <table>
     <tr>
         <td><strong>Name</strong></td>
