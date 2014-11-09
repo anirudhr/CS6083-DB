@@ -48,16 +48,9 @@ if ($result->num_rows > 0) {
         <td><strong>Description</strong></td>
         <td><strong>Size</strong></td>
         <td><strong>Price</strong></td>
-    </tr>";/*echo "<table>
-    <tr>
-        <td><strong>Name</strong></td>
-        <td><strong>Description</strong></td>
-    </tr>";*/
-    /*echo "</table>";
-    $row = $result->fetch_assoc();
-    echo $row["price"];*/
+    </tr>";
     while($row = $result->fetch_assoc()) {
-        echo "<tr><td>" . $row["sname"] . "</td><td>" . $row["description"] . "</td><td>" . $row["size"] . "</td><td>" . $row["price"] . "</td></tr>";//echo "<tr><td>" . $row["sname"] . "</td><td>" . $row["description"] . "</td></tr>";
+        echo "<tr><td>" . $row["sname"] . "</td><td>" . $row["description"] . "</td><td>" . $row["size"] . "</td><td>" . $row["price"] . "</td></tr>";
     }
     echo "</table>";
 } else {
