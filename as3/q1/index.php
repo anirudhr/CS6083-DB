@@ -56,7 +56,8 @@ else {
         <td><strong>Select</strong></td>
     </tr>";
     while($stmt->fetch()) {
-        echo "<tr><td>" . $sname . "</td><td>" . $description . "</td><td>" . $size . "</td><td>" . $price . "</td><td><input type='radio' name = '$sname'/></td></tr>";
+        $sendstr = $name . '|' . $size;
+        echo "<tr><td>" . $sname . "</td><td>" . $description . "</td><td>" . $size . "</td><td>" . $price . "</td><td><input type='radio' name = 'selection' value = '$sendstr'/></td></tr>";
     }
     echo "</table>
     <input type='submit' value='Submit'/>";
