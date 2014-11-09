@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <!--
 Use PHP to implement a web application that supports the following :
