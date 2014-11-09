@@ -12,7 +12,10 @@ Otherwise, a new tuple is inserted in the order table, representing this custome
 For full credit, you must use prepared statements.
 Test your application, using the data provided on the course page to populate your database. 
 -->
-<head><title>Sandwich Search</title></head>
+<head>
+<title>Sandwich Search</title>
+<style>table, th, td { border: 1px solid black; }</style>
+</head>
 <body>
 <?php
 session_start();
@@ -36,12 +39,27 @@ if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
 
-$sql_searchkeyword = "SELECT * FROM sandwich WHERE description LIKE '%" . $keyword . "%';";
+$sql_searchkeyword = "SELECT sandwich.sname,description,size,price FROM sandwich INNER JOIN menu ON sandwich.sname = menu.sname WHERE description LIKE '%" . $keyword . "%' ORDER BY sandwich.sname, price;";
 $result = $conn->query($sql_searchkeyword);
 if ($result->num_rows > 0) {
+    echo "<table>
+    <tr>
+        <td><strong>Name</strong></td>
+        <td><strong>Description</strong></td>
+        <td><strong>Size</strong></td>
+        <td><strong>Price</strong></td>
+    </tr>";/*echo "<table>
+    <tr>
+        <td><strong>Name</strong></td>
+        <td><strong>Description</strong></td>
+    </tr>";*/
+    /*echo "</table>";
+    $row = $result->fetch_assoc();
+    echo $row["price"];*/
     while($row = $result->fetch_assoc()) {
-        echo "Name: " . $row["sname"]. " - Description: " . $row["description"]. "<br/>";
+        echo "<tr><td>" . $row["sname"] . "</td><td>" . $row["description"] . "</td><td>" . $row["size"] . "</td><td>" . $row["price"] . "</td></tr>";//echo "<tr><td>" . $row["sname"] . "</td><td>" . $row["description"] . "</td></tr>";
     }
+    echo "</table>";
 } else {
     echo "0 results";
 }
