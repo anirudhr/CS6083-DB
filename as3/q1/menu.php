@@ -1,5 +1,4 @@
 <html>
-<!--:indentSize=4:tabSize=4:noTabs=true:wrap=soft:-->
 <!--
 Use PHP to implement a web application that supports the following :
 (i) A user enters (via an html form with two text boxes and a “submit” button) a keyword, such as "delicious" or "turkey" and a 10 digit phone number.
@@ -48,7 +47,7 @@ else {
     $stmt->bind_param("s", $keyword);
     $stmt->execute();
     $stmt->bind_result($sname, $description, $size, $price);
-    echo "<form name='take_order' action='process.php' method='get'/>
+    echo "<form name='take_order' action='process.php' method='post'/>
     <table>
     <tr>
         <th>Name</th>
@@ -74,3 +73,4 @@ $conn->close();
 ?>
 </body>
 </html>
+<!--:indentSize=4:tabSize=4:noTabs=true:wrap=soft:-->
