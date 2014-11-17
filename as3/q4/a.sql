@@ -1,5 +1,6 @@
 /*:indentSize=4:tabSize=4:noTabs=true:wrap=soft:*/
 /*Question: a) Build a view AvailableMovies that lists for each branch the branch ID and the titles of movies that are currently available (not rented out). (Your view should have two attributes, bid and mtitle.)*/
+USE videostore;
 DROP VIEW IF EXISTS AvailableMovies;
 CREATE VIEW AvailableMovies AS
     SELECT DISTINCT branch.bid, movie.title FROM branch
