@@ -8,7 +8,7 @@ DELIMITER //
 CREATE TRIGGER update_caddress BEFORE UPDATE ON customer
     FOR EACH ROW
     BEGIN
-        IF NEW.caddress IS NOT NULL THEN
+        IF NEW.caddress IS NOT NULL AND OLD.caddress IS NOT NULL THEN
             INSERT INTO OldAddresses VALUES (OLD.cid, OLD.caddress);
         END IF; 
     END;//  
