@@ -6,8 +6,8 @@ There are two ways to interpret "rented out 90% of the time":
 You may choose either of these two interpretations. Please state which one.
 You may assume that all copies in the database already existed 30 days ago. This is because the database does not keep track of then a copy was added to the branch.*/
 USE videostore;
-/*Query to select movies and their outdates and returndates:*/
-SELECT movie.mid, SUM(DATEDIFF(rental.returndate, rental.outdate))
+/*Query to select movies and the number of days they were rented for:*/
+SELECT movie.mid, SUM(DATEDIFF(rental.returndate, rental.outdate)) AS days_out, COUNT(movie.mid) AS num_copies, DATEDIFF(NOW(), MIN(rental.outdate)) AS days_tot
 FROM movie
     JOIN copy ON movie.mid = copy.mid
     JOIN rental ON rental.copyid = copy.copyid
