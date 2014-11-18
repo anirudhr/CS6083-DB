@@ -7,8 +7,9 @@ You may choose either of these two interpretations. Please state which one.
 You may assume that all copies in the database already existed 30 days ago. This is because the database does not keep track of then a copy was added to the branch.*/
 USE videostore;
 /*Query to select movies and their outdates and returndates:*/
-SELECT movie.mid, movie.title, rental.outdate, rental.returndate
+SELECT movie.mid, SUM(DATEDIFF(rental.returndate, rental.outdate))
 FROM movie
     JOIN copy ON movie.mid = copy.mid
     JOIN rental ON rental.copyid = copy.copyid
-;
+WHERE rental.returndate IS NOT NULL
+GROUP BY movie.mid;
