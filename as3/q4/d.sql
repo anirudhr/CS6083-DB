@@ -11,5 +11,7 @@ SELECT movie.mid, SUM(DATEDIFF(rental.returndate, rental.outdate)) AS days_out, 
 FROM movie
     JOIN copy ON movie.mid = copy.mid
     JOIN rental ON rental.copyid = copy.copyid
-WHERE rental.returndate IS NOT NULL
-GROUP BY movie.mid;
+/*WHERE rental.returndate IS NOT NULL*/
+GROUP BY movie.mid
+HAVING days_out > 0 and days_tot > 0
+;
