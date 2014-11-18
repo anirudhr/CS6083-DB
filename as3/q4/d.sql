@@ -6,12 +6,13 @@ There are two ways to interpret "rented out 90% of the time":
 You may choose either of these two interpretations. Please state which one.
 You may assume that all copies in the database already existed 30 days ago. This is because the database does not keep track of then a copy was added to the branch.*/
 USE videostore;
-/*Query to select movies and the number of days they were rented for:*/
-SELECT movie.mid, /*SUM(DATEDIFF(rental.returndate, rental.outdate)) AS days_out, COUNT(movie.mid) AS num_copies, DATEDIFF(MAX(rental.returndate), MIN(rental.outdate)) AS days_tot,*/ SUM(DATEDIFF(rental.returndate, rental.outdate))*COUNT(movie.mid)/DATEDIFF(MAX(rental.returndate), MIN(rental.outdate)) AS percent
-FROM movie
-    JOIN copy ON movie.mid = copy.mid
-    JOIN rental ON rental.copyid = copy.copyid
-/*WHERE rental.returndate IS NOT NULL*/
-GROUP BY movie.mid
-HAVING days_out > 0 and days_tot > 0
+INSERT INTO copy (copyid, mid, bid)
+SELECT copy.copyid+1, movieout.movieid, branch.bid FROM (
+    SELECT movie.mid AS movieid, SUM(DATEDIFF(rental.returndate, rental.outdate)) AS days_out, COUNT(movie.mid) AS num_copies, DATEDIFF(MAX(rental.outdate), MIN(rental.outdate)) AS days_tot
+    FROM movie
+        JOIN copy ON movie.mid = copy.mid
+        JOIN rental ON rental.copyid = copy.copyid
+    GROUP BY movie.mid
+    HAVING days_out > 0 and days_tot > 0)movieout JOIN copy ON copy.mid = movieout.movieid JOIN branch ON branch.bid=copy.bid
+    WHERE 100*days_out*num_copies/days_tot >= 10/*90*/
 ;
