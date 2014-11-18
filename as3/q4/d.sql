@@ -7,7 +7,7 @@ You may choose either of these two interpretations. Please state which one.
 You may assume that all copies in the database already existed 30 days ago. This is because the database does not keep track of then a copy was added to the branch.*/
 USE videostore;
 /*Query to select movies and the number of days they were rented for:*/
-SELECT movie.mid, SUM(DATEDIFF(rental.returndate, rental.outdate)) AS days_out, COUNT(movie.mid) AS num_copies, DATEDIFF(MAX(rental.returndate), MIN(rental.outdate)) AS days_tot
+SELECT movie.mid, /*SUM(DATEDIFF(rental.returndate, rental.outdate)) AS days_out, COUNT(movie.mid) AS num_copies, DATEDIFF(MAX(rental.returndate), MIN(rental.outdate)) AS days_tot,*/ SUM(DATEDIFF(rental.returndate, rental.outdate))*COUNT(movie.mid)/DATEDIFF(MAX(rental.returndate), MIN(rental.outdate)) AS percent
 FROM movie
     JOIN copy ON movie.mid = copy.mid
     JOIN rental ON rental.copyid = copy.copyid
